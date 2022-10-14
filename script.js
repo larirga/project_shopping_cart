@@ -1,10 +1,14 @@
 // Esse tipo de comentário que estão antes de todas as funções são chamados de JSdoc,
 // experimente passar o mouse sobre o nome das funções e verá que elas possuem descrições! 
 
+// const { fetchItem } = require("./helpers/fetchItem");
+
 // const { fetchProducts } = require("./helpers/fetchProducts");
 
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
 
+const cartItems = document.querySelector('.cart__items');
+const items = document.querySelector('.items');
 /**
  * Função responsável por criar e retornar o elemento de imagem do produto.
  * @param {string} imageSource - URL da imagem.
@@ -47,7 +51,6 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   section.appendChild(createCustomElement('span', 'item__title', title));
   section.appendChild(createProductImageElement(thumbnail));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
   return section;
 };
 
@@ -65,7 +68,13 @@ const getIdFromProductItem = (product) => product.querySelector('span.id').inner
  * @param {string} product.title - Título do produto.
  * @param {string} product.price - Preço do produto.
  * @returns {Element} Elemento de um item do carrinho.
+ * 
  */
+
+const cartItemClickListener = (event) => {
+  cartItems.removeChild(event.target);
+};
+
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -73,13 +82,21 @@ const createCartItemElement = ({ id, title, price }) => {
   li.addEventListener('click', cartItemClickListener);
   return li;
 };
-const items = document.querySelector('.items');
+
+const sendToCart = async (id) => {
+  const product = await fetchItem(id);
+  const cartItemElement = createCartItemElement(product);
+  cartItems.appendChild(cartItemElement);
+};
 
 window.onload = async () => { 
   const response = await fetchProducts('computador');
   const products = response.results;
   products.forEach((element) => {
     const eachProducts = createProductItemElement(element);
+    const id = eachProducts.querySelector('.item_id').innerText;
+    const getButton = eachProducts.getElementsByClassName('item__add')[0];
+    getButton.addEventListener('click', () => sendToCart(id));
     items.appendChild(eachProducts);
   });
 };
