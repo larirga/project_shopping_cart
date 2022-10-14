@@ -9,6 +9,9 @@
 
 const cartItems = document.querySelector('.cart__items');
 const items = document.querySelector('.items');
+const emptyCartButton = document.querySelector('.empty-cart');
+const littleCart = document.querySelector('.cart');
+
 /**
  * Função responsável por criar e retornar o elemento de imagem do produto.
  * @param {string} imageSource - URL da imagem.
@@ -97,6 +100,9 @@ window.onload = async () => {
     const id = eachProducts.querySelector('.item_id').innerText;
     const getButton = eachProducts.getElementsByClassName('item__add')[0];
     getButton.addEventListener('click', () => sendToCart(id));
+    emptyCartButton.addEventListener('click', () => {
+      (cartItems.innerHTML = '');
+    });
     items.appendChild(eachProducts);
   });
 };
