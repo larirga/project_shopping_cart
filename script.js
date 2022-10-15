@@ -1,6 +1,11 @@
 // Esse tipo de comentário que estão antes de todas as funções são chamados de JSdoc,
 // experimente passar o mouse sobre o nome das funções e verá que elas possuem descrições! 
 
+// const saveCartItems = require("./helpers/saveCartItems");
+
+// const getSavedCartItems = require('./helpers/getSavedCartItems');
+// const saveCartItems = require('./helpers/saveCartItems');
+
 // const { fetchItem } = require("./helpers/fetchItem");
 
 // const { fetchProducts } = require("./helpers/fetchProducts");
@@ -89,9 +94,33 @@ const sendToCart = async (id) => {
   const product = await fetchItem(id);
   const cartItemElement = createCartItemElement(product);
   cartItems.appendChild(cartItemElement);
+  const cartItem = document.querySelectorAll('.cart__item');
+  const cartArray = Array.from(cartItem);
+  const mapCart = cartArray.map((element) => element.innerHTML);
+  const JSONmap = JSON.stringify(mapCart);
+  saveCartItems(JSONmap);
 };
 
+const startLocalStorage = () => {
+  if (localStorage.getItem('cart') !== null) {
+    const savedCart = JSON.parse(getSavedCartItems());
+    console.log(savedCart);
+    savedCart.forEach((innerHTML) => {
+      const li = document.createElement('li');
+      li.className = 'cart__item';
+      li.innerHTML = innerHTML;
+      li.addEventListener('click', cartItemClickListener);
+      cartItems.appendChild(li);
+    });
+  }
+};
+
+// const cartValue = () => {
+//   cartItems.map((element) => element.innerText);
+// };
+
 window.onload = async () => { 
+  startLocalStorage();
   const response = await fetchProducts('computador');
   const products = response.results;
   products.forEach((element) => {
