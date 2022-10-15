@@ -15,6 +15,7 @@
 const cartItems = document.querySelector('.cart__items');
 const items = document.querySelector('.items');
 const emptyCartButton = document.querySelector('.empty-cart');
+const loadingHTML = document.querySelector('.loading');
 
 /**
  * Função responsável por criar e retornar o elemento de imagem do produto.
@@ -133,4 +134,5 @@ window.onload = async () => {
     });
     items.appendChild(eachProducts);
   });
+  items.removeChild(loadingHTML);
 };
