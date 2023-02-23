@@ -16,6 +16,8 @@ const cartItems = document.querySelector('.cart__items');
 const items = document.querySelector('.items');
 const emptyCartButton = document.querySelector('.empty-cart');
 const loadingHTML = document.querySelector('.loading');
+const calculatedPrice = document.querySelector('.total-price');
+const liGet = document.createElement('li');
 
 /**
  * Função responsável por criar e retornar o elemento de imagem do produto.
@@ -91,9 +93,22 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
+const cartValue = async (value) => {
+  const beforeValueTotal = Number(calculatedPrice.innerText);
+  const result = value + beforeValueTotal;
+  calculatedPrice.innerText = result;
+};
+
+// const cartValue = async () => {
+//   const price = liGet.innerText;
+//   console.log(price);
+// };
+
 const sendToCart = async (id) => {
   const product = await fetchItem(id);
   const cartItemElement = createCartItemElement(product);
+  // await cartValue();
+  await cartValue(Number(product.price));
   cartItems.appendChild(cartItemElement);
   const cartItem = document.querySelectorAll('.cart__item');
   const cartArray = Array.from(cartItem);
@@ -115,10 +130,6 @@ const startLocalStorage = () => {
     });
   }
 };
-
-// const cartValue = () => {
-//   cartItems.map((element) => element.innerText);
-// };
 
 window.onload = async () => { 
   startLocalStorage();
