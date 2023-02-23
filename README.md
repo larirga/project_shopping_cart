@@ -1,3 +1,5 @@
+# Projeto de uma págin de carrinho de compras, dinâmico, consumindo dados diretamente da API e testes unitários no js vanilla :credit_card: :bowtie:
+ 
 ## 1. (TDD) Desenvolva testes de no mínimo 25% de cobertura total e 100% da função `fetchProducts`
 
   <summary>
@@ -251,9 +253,3 @@ Uma requisição à API gasta um certo tempo e durante esse processo a pessoa qu
 - Adicione a classe `loading` ao elemento que possui o texto `carregando...`;
 
 - Exiba esse elemento apenas **durante** a requisição à API.
-
-> **De olho na dica 👀:** Você pode criar uma função que adicione ao DOM o elemento com o texto `carregando...` e outra para retirá-lo, o que acha?
-
-**O que será testado:**
-
-- Verifica se adiciona um texto de "carregando" durante uma requisição à API.
