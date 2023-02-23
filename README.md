@@ -1,4 +1,4 @@
-# Projeto de uma págin de carrinho de compras, dinâmico, consumindo dados diretamente da API e testes unitários no js vanilla :credit_card: :bowtie:
+# Projeto de uma página de carrinho de compras, dinâmico, consumindo dados diretamente da API e testes unitários no js vanilla :credit_card: :bowtie:
  
 ## 1. (TDD) Desenvolva testes de no mínimo 25% de cobertura total e 100% da função `fetchProducts`
 
